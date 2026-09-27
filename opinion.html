@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opini tentang web ini</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>MASA PEMERINTAHAN PRABOWO</h1>
+
+       <nav>
+            <a href="index.html">Beranda</a>
+            <a href="pemerintahan.html">Pemerintahan</a>
+            <a href="positif.html">Hal Positif</a>
+            <a href="negatif.html">Hal Negatif</a>
+            <a href="#">Opini</a>
+            <a href="about.html">Aboout</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <h2>Opini Pengunjung</h2>
+
+        <p>
+            Menurut kamu, bagaimana pemerintahan Presiden Prabowo?
+        </p>
+
+        <div class="polling">
+
+            <h3>Apakah kamu menyukai web ini?</h3>
+
+            <button onclick="pilih('Saya Suka')">
+                👍 Saya Suka
+            </button>
+
+            <button onclick="pilih('Biasa Saja')">
+                😐 Biasa Saja
+            </button>
+
+            <button onclick="pilih('Saya Tidak Setuju')">
+                👎 Saya Tidak Suka
+            </button>
+
+            <p id="hasil"></p>
+
+        </div>
+
+        <hr>
+
+        <h3>Tulis Pendapat Kamu</h3>
+
+        <form id="formOpini">
+
+            <label>Nama:</label>
+            <br>
+
+            <input
+                type="text"
+                id="nama"
+                placeholder="Masukkan nama"
+                required
+            >
+
+            <br><br>
+
+            <label>Apakah kamu mendukung?</label>
+            <br>
+
+            <select id="pilihan" required>
+
+                <option value="">
+                    -- Pilih jawaban --
+                </option>
+
+                <option value="Mendukung">
+                    Mendukung
+                </option>
+
+                <option value="Netral">
+                    Netral
+                </option>
+
+                <option value="Tidak Mendukung">
+                    Tidak Mendukung
+                </option>
+
+            </select>
+
+            <br><br>
+
+            <label>Pendapat:</label>
+            <br>
+
+            <textarea
+                id="pendapat"
+                rows="6"
+                placeholder="Tulis pendapat kamu..."
+                required
+            ></textarea>
+
+            <br>
+
+            <button type="submit">
+                Kirim Pendapat
+            </button>
+
+        </form>
+
+        <p id="pesan"></p>
+
+        <h3>Contoh Opini</h3>
+
+        <div id="daftarOpini">
+            <p>
+                Belum ada opini yang dikirim.
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>@jstchimm on ig</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
