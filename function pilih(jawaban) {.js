@@ -4,45 +4,101 @@ function pilih(jawaban) {
 
     hasil.innerHTML =
         "Kamu memilih: <b>" + jawaban + "</b>";
-
 }
 
 
-// Form opini
+// ===============================
+// FORM OPINI
+// ===============================
 
 let form = document.getElementById("formOpini");
 
 if (form) {
 
-    form.addEventListener("submit", function(event) {
+    form.addEventListener("submit", async function(event) {
 
         event.preventDefault();
 
+
+        // ===============================
+        // AMBIL DATA DARI FORM
+        // ===============================
+
         let nama =
-            document.getElementById("nama").value;
+            document.getElementById("nama").value.trim();
 
         let pilihan =
             document.getElementById("pilihan").value;
 
         let pendapat =
-            document.getElementById("pendapat").value;
+            document.getElementById("pendapat").value.trim();
 
         let daftar =
             document.getElementById("daftarOpini");
 
-        // Menghapus tulisan "belum ada opini"
+
+        // ===============================
+        // CEK INPUT
+        // ===============================
+
+        if (nama === "" || pendapat === "") {
+
+            alert("Nama dan pendapat harus diisi!");
+
+            return;
+        }
+
+
+        // ===============================
+        // SIMPAN KE SUPABASE
+        // ===============================
+
+        const { data, error } = await supabaseClient
+            .from("messages")
+            .insert([
+                {
+                    name: nama,
+                    message: pendapat
+                }
+            ]);
+
+
+        // ===============================
+        // JIKA GAGAL
+        // ===============================
+
+        if (error) {
+
+            console.error(error);
+
+            alert("Gagal menyimpan pesan");
+
+            return;
+        }
+
+
+        // ===============================
+        // HAPUS "BELUM ADA OPINI"
+        // ===============================
+
         if (
-            daftar.innerText.includes(
-                "Belum ada opini"
-            )
+            daftar &&
+            daftar.innerText.includes("Belum ada opini")
         ) {
+
             daftar.innerHTML = "";
         }
+
+
+        // ===============================
+        // BUAT OPINI BARU
+        // ===============================
 
         let opiniBaru =
             document.createElement("div");
 
         opiniBaru.className = "opini";
+
 
         opiniBaru.innerHTML = `
             <b>${nama}</b>
@@ -51,13 +107,31 @@ if (form) {
             <p>${pendapat}</p>
         `;
 
-        daftar.appendChild(opiniBaru);
 
-        document.getElementById("pesan").innerHTML =
-            "Pendapat berhasil dikirim!";
+        // ===============================
+        // TAMPILKAN OPINI
+        // ===============================
 
-        form.reset();
+        if (daftar) {
+
+            daftar.appendChild(opiniBaru);
+        }
+
+
+        // ===============================
+        // KOSONGKAN FORM
+        // ===============================
+
+        document.getElementById("nama").value = "";
+
+        document.getElementById("pendapat").value = "";
+
+
+        // ===============================
+        // PESAN BERHASIL
+        // ===============================
+
+        alert("Pesan berhasil disimpan!");
 
     });
-
 }
